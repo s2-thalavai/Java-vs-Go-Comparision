@@ -44,3 +44,22 @@ This is the modern enterprise pattern used by Uber, Netflix, Stripe.
 | No event history          | No audit / compliance trace |
 | No DLQ / retry            | Lost onboarding cases       |
 | Hard to reprocess vendors | Rule change = no replay     |
+
+🧠 Why “only Kafka” is not ideal
+
+| Problem                 | Impact                          |
+| ----------------------- | ------------------------------- |
+| User waiting?           | Hard to do live response        |
+| OCR step latency varies | No way to sync decisions easily |
+
+## Final Answer
+
+> gRPC + Kafka = correct architecture
+> for your vendor onboarding pipeline.
+
+- gRPC for direct immediate processing
+- Kafka for event durability + async reliability + scaling
+
+Use choreography for technical pipeline (OCR/rules)
+Use orchestration for approval workflow (Finance/Legal)
+
